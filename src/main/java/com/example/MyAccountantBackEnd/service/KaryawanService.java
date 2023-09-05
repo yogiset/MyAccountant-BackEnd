@@ -6,7 +6,7 @@ import com.example.MyAccountantBackEnd.exception.AllException;
 import java.util.List;
 
 public interface KaryawanService {
-    Karyawan addKaryawan(Karyawan karyawan);
+    Karyawan addKaryawan(Karyawan karyawan) throws AllException;
 
     List<Karyawan> showAllKaryawan();
 

@@ -15,7 +15,7 @@ public class BarangController {
     private BarangService barangService;
 
     @PostMapping("/add")
-    public Barang addBarang(@RequestBody Barang barang){
+    public Barang addBarang(@RequestBody Barang barang) throws AllException {
         return barangService.addBarang(barang);
     }
     @GetMapping("/all")

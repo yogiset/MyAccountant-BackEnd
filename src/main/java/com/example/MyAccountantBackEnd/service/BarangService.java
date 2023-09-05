@@ -6,7 +6,7 @@ import com.example.MyAccountantBackEnd.exception.AllException;
 import java.util.List;
 
 public interface BarangService {
-    Barang addBarang(Barang barang);
+    Barang addBarang(Barang barang) throws AllException;
 
     List<Barang> listBarang();
 

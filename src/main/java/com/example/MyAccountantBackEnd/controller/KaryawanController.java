@@ -15,7 +15,7 @@ public class KaryawanController {
     private KaryawanService karyawanService;
 
     @PostMapping("/add")
-    public Karyawan addKaryawan(@RequestBody Karyawan karyawan){
+    public Karyawan addKaryawan(@RequestBody Karyawan karyawan) throws AllException {
         return karyawanService.addKaryawan(karyawan);
     }
 
