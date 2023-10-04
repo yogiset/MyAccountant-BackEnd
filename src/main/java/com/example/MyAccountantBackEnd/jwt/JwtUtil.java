@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
-
 @Service
 public class JwtUtil {
 
@@ -66,11 +64,6 @@ public class JwtUtil {
     }
 
     public Claims validateAndExtractClaims(String token) {
-        if (token == null || token.isEmpty()) {
-            // Handle the case of a null or empty token
-            throw new IllegalArgumentException("JWT token cannot be null or empty");
-        }
-
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(secretKey)
@@ -91,6 +84,4 @@ public class JwtUtil {
             throw new RuntimeException("Invalid token");
         }
     }
-
-
 }

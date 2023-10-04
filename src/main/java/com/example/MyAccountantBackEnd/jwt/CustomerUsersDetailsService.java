@@ -1,6 +1,5 @@
 package com.example.MyAccountantBackEnd.jwt;
 
-
 import com.example.MyAccountantBackEnd.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

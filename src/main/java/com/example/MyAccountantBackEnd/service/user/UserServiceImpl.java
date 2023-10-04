@@ -5,7 +5,6 @@ import com.example.MyAccountantBackEnd.entity.User;
 import com.example.MyAccountantBackEnd.jwt.JwtFilter;
 import com.example.MyAccountantBackEnd.jwt.JwtUtil;
 import com.example.MyAccountantBackEnd.repository.UserRepository;
-import com.example.MyAccountantBackEnd.request.ChangePasswordRequest;
 import com.example.MyAccountantBackEnd.service.mail.MailService;
 import com.example.MyAccountantBackEnd.utils.UserUtils;
 import com.google.common.base.Strings;
@@ -18,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.SecureRandom;
 import java.time.Instant;

@@ -34,7 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         logger.info("Inside JwtFilter");
-
         if(httpServletRequest.getServletPath().matches("/user/login|/user/changePassword|/user/forgotPassword|/user/register|/user/me|/karyawan/add|/karyawan/all|/karyawan/cari/\\\\d+|/karyawan/delete/\\\\d+|/karyawan/update/\\\\d+|/barang/all|/barang/add|/barang/cari/\\\\d+|/barang/delete/\\\\d+|/barang/update/\\\\d+")){
             filterChain.doFilter(httpServletRequest,httpServletResponse);
         } else if (httpServletRequest.getServletPath().startsWith("/user/register/accountVerification/")) {
@@ -47,8 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 token = authorizationHeader.substring(7);
                 username = jwtUtil.extractUsername(token);
-                claims = jwtUtil.validateAndExtractClaims(token);
-                logger.info(claims);
+                claims = jwtUtil.extractAllClaims(token);
             }
 
             if(username != null && SecurityContextHolder.getContext().getAuthentication()==null){
