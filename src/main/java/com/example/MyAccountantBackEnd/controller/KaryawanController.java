@@ -2,7 +2,7 @@ package com.example.MyAccountantBackEnd.controller;
 
 import com.example.MyAccountantBackEnd.entity.Karyawan;
 import com.example.MyAccountantBackEnd.exception.AllException;
-import com.example.MyAccountantBackEnd.service.KaryawanService;
+import com.example.MyAccountantBackEnd.service.karyawan.KaryawanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

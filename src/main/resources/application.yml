@@ -18,6 +18,19 @@
 
 
 spring:
+
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: ac35842fef30ed
+    password: 3c6ac6dd836284
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+
   datasource:
     url: jdbc:postgresql://localhost:5432/myaccountant
     username: postgres
