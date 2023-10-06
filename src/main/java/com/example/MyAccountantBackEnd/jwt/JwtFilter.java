@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         logger.info("Inside JwtFilter");
-        if(httpServletRequest.getServletPath().matches("/user/login|/user/changePassword|/user/forgotPassword|/user/register|/user/me|/karyawan/add|/karyawan/all|/karyawan/cari/\\\\d+|/karyawan/delete/\\\\d+|/karyawan/update/\\\\d+|/barang/all|/barang/add|/barang/cari/\\\\d+|/barang/delete/\\\\d+|/barang/update/\\\\d+")){
+        if(httpServletRequest.getServletPath().matches("/user/login|/api/auth/user|/user/profile|/user/changePassword|/user/forgotPassword|/user/register|/user/me|/karyawan/add|/karyawan/all|/karyawan/cari/\\\\d+|/karyawan/delete/\\\\d+|/karyawan/update/\\\\d+|/barang/all|/barang/add|/barang/cari/\\\\d+|/barang/delete/\\\\d+|/barang/update/\\\\d+")){
             filterChain.doFilter(httpServletRequest,httpServletResponse);
         } else if (httpServletRequest.getServletPath().startsWith("/user/register/accountVerification/")) {
             // Skip token validation for verification URL

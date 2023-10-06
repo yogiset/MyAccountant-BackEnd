@@ -29,7 +29,7 @@ public interface UserController {
     ResponseEntity<String>forgotPassword(@RequestBody Map<String,String> requestMap);
 
     @PostMapping("/changePassword")
-    ResponseEntity<String> changePassword(@RequestBody Map<String, String> requestMap);
+    ResponseEntity<String> changePassword(@RequestBody Map<String, String> requestMap,String userEmail);
 
 
 }

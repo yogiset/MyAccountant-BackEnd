@@ -71,10 +71,10 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap,String userEmail) {
         try {
 
-            return userService.changePassword(requestMap);
+            return userService.changePassword(requestMap,userEmail);
         }catch (Exception ex){
             ex.printStackTrace();
         }

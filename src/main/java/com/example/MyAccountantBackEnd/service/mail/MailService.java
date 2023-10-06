@@ -28,8 +28,11 @@ public class MailService {
 
     @Async
     public void sendActivationEmail(User user) {
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
-        String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token;
+        log.info("inside sendActivationEmail");
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getName());
+        String redirectLogin ="http://localhost:3000/user/login";
+        String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token ;
+
 
         String subject = "Please Activate your Account";
 
@@ -40,7 +43,7 @@ public class MailService {
             messageHelper.setSubject(subject);
             String htmlMsg = "<p><b>Thank you for signing up to Myaccountant</b></p>" +
                     "<p>Please click on the below URL to activate your account:</p>" +
-                    "<a href='" + verificationUrl + "'>Activate Account</a>";
+                    "<a href='" + verificationUrl +"'>Activate Account</a>";
             mimeMessage.setContent(htmlMsg, "text/html");
         };
 
@@ -55,6 +58,7 @@ public class MailService {
 
     @Async
     public void forgotMail(String to,String subject,String password) throws MessagingException {
+        log.info("inside forgotMail");
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,true);
         helper.setFrom("MyAccountant@gmail.com");

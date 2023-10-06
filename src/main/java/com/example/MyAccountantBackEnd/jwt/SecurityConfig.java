@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/login","/user/changePassword","/user/me","/user/register","/user/forgotPassword","/user/register/accountVerification/**","/karyawan/all","/karyawan/add","/karyawan/cari/{id}","/karyawan/delete/{id}","/karyawan/update/{id}","/barang/all","/barang/add","/barang/cari/{id}","/barang/delete/{id}","/barang/update/{id}")
+                .antMatchers("/api/auth/user","/user/login","/user/profile","/user/changePassword","/user/me","/user/register","/user/forgotPassword","/user/register/accountVerification/**","/karyawan/all","/karyawan/add","/karyawan/cari/{id}","/karyawan/delete/{id}","/karyawan/update/{id}","/barang/all","/barang/add","/barang/cari/{id}","/barang/delete/{id}","/barang/update/{id}")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

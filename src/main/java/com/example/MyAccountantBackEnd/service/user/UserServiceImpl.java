@@ -104,19 +104,19 @@ public class UserServiceImpl implements UserService {
                 if (passwordEncoder.matches(password, user.getPassword())) {
                     if ("true".equalsIgnoreCase(user.getStatus())) {
                         // Generate the JWT token for the authenticated user
-                        String jwtToken = jwtUtil.generateToken(user.getEmail(), user.getRole());
+                        String jwtToken = jwtUtil.generateToken(user.getEmail(), user.getRole(),user.getName());
 
                         // Return the token as a JSON response
-                        return new ResponseEntity<>("{\"token\":\"" + jwtToken + "\"}", HttpStatus.OK);
+                        return new ResponseEntity<>("{\"token\":\"" + jwtToken +"\"}", HttpStatus.OK);
                     } else {
-                        return new ResponseEntity<>("{\"message\":\"Please Check Your Email.\"}", HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<>("{\"message\":\"Please Verify your email first.\"}", HttpStatus.BAD_REQUEST);
                     }
                 }
             }
         } catch (Exception ex) {
             log.error("{}", ex);
         }
-        return new ResponseEntity<>("{\"message\":\"Bad Credentials.\"}", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("{\"message\":\"Bad Credentials. Please check your password or email\"}", HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -162,53 +162,53 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-
-
-
-//    public ResponseEntity<String> changePassword(ChangePasswordRequest request, String token) {
-//        log.info("Inside ChangePassword");
+//    @Override
+//    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
 //        try {
+//            log.info("Inside changePassword");
 //
-//            String oldPassword = request.getOldPassword();
-//            String newPassword = request.getNewPassword();
+//            // Get the current user's email from the JWT token
+//            String currentEmail = jwtFilter.getCurrentUser();
 //
-//            // Validate and decode the token
-//            Claims claims = jwtUtil.validateAndExtractClaims(token);
-//            if (claims == null) {
-//                return UserUtils.getResponseEntity("Invalid or expired token.", HttpStatus.BAD_REQUEST);
-//            }
+//            if (currentEmail != null) {
+//                log.info("Current Email: " + currentEmail);
 //
-//            String currentEmail = claims.getSubject();
+//                // Retrieve the user from the database
+//                User user = userRepository.findByEmailId(currentEmail);
 //
-//            // Retrieve the user from the database
-//            User user = userRepository.findByEmailId(currentEmail);
+//                if (user != null) {
+//                    String oldPassword = requestMap.get("oldPassword");
+//                    String newPassword = requestMap.get("newPassword");
 //
-//            if (user != null) {
-//                // Encode the old password using the same password encoder
-//                String encodedOldPassword = passwordEncoder.encode(oldPassword);
+//                    // Encode the old password using the same password encoder
+//                    String encodedOldPassword = passwordEncoder.encode(oldPassword);
 //
-//                // Compare the encoded old password with the stored hashed password
-//                if (passwordEncoder.matches(oldPassword, user.getPassword())) {
-//                    // Encode the new password before saving it
-//                    String encodedNewPassword = passwordEncoder.encode(newPassword);
+//                    // Compare the encoded old password with the stored hashed password
+//                    if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+//                        // Encode the new password before saving it
+//                        String encodedNewPassword = passwordEncoder.encode(newPassword);
 //
-//                    // Update the user's password with the new hashed password
-//                    user.setPassword(encodedNewPassword);
-//                    userRepository.save(user);
+//                        // Update the user's password with the new hashed password
+//                        user.setPassword(encodedNewPassword);
+//                        userRepository.save(user);
 //
-//                    // Password updated successfully
-//                    return UserUtils.getResponseEntity("Password Updated Successfully", HttpStatus.OK);
-//                } else {
-//                    // Incorrect old password
-//                    return UserUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
+//                        // Password updated successfully
+//                        return UserUtils.getResponseEntity("Password Updated Successfully", HttpStatus.OK);
+//                    } else {
+//                        // Incorrect old password
+//                        return UserUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
+//                    }
 //                }
-//            }
 //
-//            // User not found
-//            return UserUtils.getResponseEntity("User not found", HttpStatus.INTERNAL_SERVER_ERROR);
+//                // User not found
+//                return UserUtils.getResponseEntity("User not found", HttpStatus.INTERNAL_SERVER_ERROR);
+//            } else {
+//                log.error("Token is null or empty");
+//                return UserUtils.getResponseEntity("Token is null or empty", HttpStatus.BAD_REQUEST);
+//            }
 //        } catch (Exception ex) {
 //            // Log the exception for debugging purposes
-//            ex.printStackTrace();
+//            log.error("An error occurred while changing the password", ex);
 //
 //            // Handle the exception more gracefully and provide a meaningful error message
 //            return UserUtils.getResponseEntity("An error occurred while changing the password.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -216,18 +216,17 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap,String userEmail) {
         try {
             log.info("Inside changePassword");
 
-            // Get the current user's email from the JWT token
-            String currentEmail = jwtFilter.getCurrentUser();
+            userEmail = requestMap.get("email");
 
-            if (currentEmail != null) {
-                log.info("Current Email: " + currentEmail);
+            if (userEmail != null) {
+                log.info("Current Email: " + userEmail);
 
                 // Retrieve the user from the database
-                User user = userRepository.findByEmailId(currentEmail);
+                User user = userRepository.findByEmailId(userEmail);
 
                 if (user != null) {
                     String oldPassword = requestMap.get("oldPassword");
@@ -252,7 +251,6 @@ public class UserServiceImpl implements UserService {
                         return UserUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
                     }
                 }
-
                 // User not found
                 return UserUtils.getResponseEntity("User not found", HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
@@ -267,6 +265,13 @@ public class UserServiceImpl implements UserService {
             return UserUtils.getResponseEntity("An error occurred while changing the password.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
+
+
+
+
 
 
     @Override
@@ -295,7 +300,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return UserUtils.getResponseEntity(ApiConstant.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return UserUtils.getResponseEntity("Email did not exists", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int PASSWORD_LENGTH = 12;
