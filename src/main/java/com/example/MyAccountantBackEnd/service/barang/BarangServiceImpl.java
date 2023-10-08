@@ -109,6 +109,7 @@ public class BarangServiceImpl implements BarangService {
         updatedBarang.setJumlahbarang(barang.getJumlahbarang());
         updatedBarang.setHargabarang(barang.getHargabarang());
         updatedBarang.setTglmasuk(barang.getTglmasuk());
+        updatedBarang.setImageurl(barang.getImageurl());
         barangRepository.save(updatedBarang);
 
         return updatedBarang;

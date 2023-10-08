@@ -24,6 +24,7 @@ public class Barang {
     private String jenisbarang;
     private Integer jumlahbarang;
     private Integer hargabarang;
+    private String imageurl;
     private LocalDate tglmasuk;
 
 }
