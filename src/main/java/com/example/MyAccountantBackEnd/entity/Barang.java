@@ -24,6 +24,7 @@ public class Barang {
     private String jenisbarang;
     private Integer jumlahbarang;
     private Integer hargabarang;
+    @Column(columnDefinition="text")
     private String imageurl;
     private LocalDate tglmasuk;
 

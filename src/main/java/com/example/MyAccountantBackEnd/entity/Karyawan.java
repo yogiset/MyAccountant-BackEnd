@@ -24,6 +24,7 @@ public class Karyawan {
     private String email;
     private String jabatan;
     private String phone;
+    @Column(columnDefinition="text")
     private String imageurl;
     private LocalDate tgl_lahir;
     private Integer umur;
