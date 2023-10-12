@@ -1,5 +1,6 @@
 package com.example.MyAccountantBackEnd.controller;
 
+
 import com.example.MyAccountantBackEnd.entity.Karyawan;
 import com.example.MyAccountantBackEnd.exception.AllException;
 import com.example.MyAccountantBackEnd.service.karyawan.KaryawanService;
@@ -40,4 +41,16 @@ public class KaryawanController {
                                    @RequestBody Karyawan karyawan) throws AllException {
         return karyawanService.updateKaryawan(id,karyawan);
     }
+
+    @DeleteMapping("/deletecode/{kodekaryawan}")
+    public String deleteKaryawanByCode(@PathVariable("kodekaryawan")String kodekaryawan) throws AllException {
+        karyawanService.deleteKaryawanByKodeKaryawan(kodekaryawan);
+        return "Data Karyawan telah dihapus!!";
+    }
+
+    @PutMapping("/updatecode/{kodekaryawan}")
+    public Karyawan updateKaryawanByCode(@PathVariable("kodekaryawan")String kodekaryawan, @RequestBody Karyawan karyawan ) throws AllException {
+        return karyawanService.updateKaryawanByKodeKaryawan(kodekaryawan,karyawan);
+    }
+
 }

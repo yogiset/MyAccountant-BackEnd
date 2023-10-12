@@ -15,4 +15,8 @@ public interface KaryawanService {
     void deleteKaryawanById(Long id) throws AllException;
 
     Karyawan updateKaryawan(Long id, Karyawan karyawan) throws AllException;
+
+    void deleteKaryawanByKodeKaryawan(String kodekaryawan) throws AllException;
+
+    Karyawan updateKaryawanByKodeKaryawan(String kodekaryawan, Karyawan karyawan) throws AllException;
 }

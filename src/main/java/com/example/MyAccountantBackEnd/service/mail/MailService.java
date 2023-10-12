@@ -30,7 +30,6 @@ public class MailService {
     public void sendActivationEmail(User user) {
         log.info("inside sendActivationEmail");
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getName());
-        String redirectLogin ="http://localhost:3000/user/login";
         String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token ;
 
 
@@ -64,7 +63,7 @@ public class MailService {
         helper.setFrom("MyAccountant@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
-        String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:3000/\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
+        String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:3000/login\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
         message.setContent(htmlMsg,"text/html");
         mailSender.send(message);
 

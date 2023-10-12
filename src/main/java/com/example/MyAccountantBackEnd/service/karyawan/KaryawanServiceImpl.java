@@ -1,5 +1,6 @@
 package com.example.MyAccountantBackEnd.service.karyawan;
 
+
 import com.example.MyAccountantBackEnd.entity.Karyawan;
 import com.example.MyAccountantBackEnd.exception.AllException;
 import com.example.MyAccountantBackEnd.repository.KaryawanRepository;
@@ -104,6 +105,55 @@ public class KaryawanServiceImpl implements KaryawanService {
 
         Karyawan updatedKaryawan = karyawanRepository.findById(id)
                 .orElseThrow(() -> new AllException("karyawan dengan Id" + id + "tidak ada"));
+
+        updatedKaryawan.setNama(karyawan.getNama());
+        updatedKaryawan.setEmail(karyawan.getEmail());
+        updatedKaryawan.setJabatan(karyawan.getJabatan());
+        updatedKaryawan.setPhone(karyawan.getPhone());
+        updatedKaryawan.setImageurl(karyawan.getImageurl());
+        updatedKaryawan.setTgl_lahir(karyawan.getTgl_lahir());
+        karyawanRepository.save(updatedKaryawan);
+
+        return updatedKaryawan;
+    }
+
+    @Override
+    public void deleteKaryawanByKodeKaryawan(String kodekaryawan) throws AllException {
+        Optional <Karyawan> deleteKaryawan = karyawanRepository.findBykodekaryawan(kodekaryawan);
+        if(!deleteKaryawan.isPresent()){
+            throw new AllException("karyawan dengan kode karyawan" + kodekaryawan + "tidak ada");
+        } else {
+
+            karyawanRepository.deleteBykodekaryawan(kodekaryawan);}
+    }
+
+    @Override
+    public Karyawan updateKaryawanByKodeKaryawan(String kodekaryawan, Karyawan karyawan) throws AllException {
+        if (karyawan.getNama() == null || karyawan.getNama().isEmpty()) {
+            throw new AllException("Nama harus di isi !!!");
+        }
+        if (karyawan.getEmail() == null || karyawan.getEmail().isEmpty()) {
+            throw new AllException("Email harus di isi !!!");
+        }
+        if (karyawan.getJabatan() == null || karyawan.getJabatan().isEmpty()) {
+            throw new AllException("Jabatan harus di isi !!!");
+        }
+        if (karyawan.getPhone() == null || karyawan.getPhone().isEmpty()) {
+            throw new AllException("No HP harus di isi !!!");
+        }
+
+        Optional<LocalDate> tgllahir = Optional.ofNullable(karyawan.getTgl_lahir());
+        if (tgllahir.isPresent()) {
+            String tanggalLahir = tgllahir.get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            if (tanggalLahir.isEmpty()) {
+                throw new AllException("Tanggal lahir harus di isi !!!");
+            }
+        } else {
+            throw new AllException("Tanggal lahir harus di isi !!!");
+        }
+
+        Karyawan updatedKaryawan = karyawanRepository.findBykodekaryawan(kodekaryawan)
+                .orElseThrow(() -> new AllException("karyawan dengan kode karyawan" + kodekaryawan + "tidak ada"));
 
         updatedKaryawan.setNama(karyawan.getNama());
         updatedKaryawan.setEmail(karyawan.getEmail());

@@ -37,6 +37,16 @@ public class BarangController {
     public Barang updateBarangById(@PathVariable("id")Long id,@RequestBody Barang barang ) throws AllException {
         return barangService.updateBarangById(id,barang);
     }
+    @DeleteMapping("/deletecode/{kodebarang}")
+    public String deleteBarangByCode(@PathVariable("kodebarang")String kodebarang) throws AllException {
+        barangService.deleteBarangByKodeBarang(kodebarang);
+        return "Data Barang telah dihapus!!";
+    }
+
+    @PutMapping("/updatecode/{kodebarang}")
+    public Barang updateBarangByCode(@PathVariable("kodebarang")String kodebarang,@RequestBody Barang barang ) throws AllException {
+        return barangService.updateBarangByKodeBarang(kodebarang,barang);
+    }
 
 
 }

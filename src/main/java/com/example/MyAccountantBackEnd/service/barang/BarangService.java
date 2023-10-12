@@ -15,4 +15,8 @@ public interface BarangService {
     void deleteBarangById(Long id) throws AllException;
 
     Barang updateBarangById(Long id, Barang barang) throws AllException;
+
+    void deleteBarangByKodeBarang(String kodebarang) throws AllException;
+
+    Barang updateBarangByKodeBarang(String kodebarang, Barang barang) throws AllException;
 }

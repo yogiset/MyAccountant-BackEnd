@@ -26,12 +26,11 @@ public class Karyawan {
     private String phone;
     private String imageurl;
     private LocalDate tgl_lahir;
-    @Transient
     private Integer umur;
     private String kodekaryawan;
 
-    public Integer getUmur() {
-        return Period.between(this.tgl_lahir,LocalDate.now()).getYears();
-
-    }
+//    public Integer getUmur() {
+//        return Period.between(this.tgl_lahir,LocalDate.now()).getYears();
+//
+//    }
 }
