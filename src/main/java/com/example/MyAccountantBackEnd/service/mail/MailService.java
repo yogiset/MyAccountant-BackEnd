@@ -30,7 +30,7 @@ public class MailService {
     public void sendActivationEmail(User user) {
         log.info("inside sendActivationEmail");
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getName());
-        String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token ;
+        String verificationUrl = "http://myaccountant-backend-production.up.railway.app/user/register/accountVerification/" + token ;
 
 
         String subject = "Please Activate your Account";
