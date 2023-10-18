@@ -63,7 +63,7 @@ public class MailService {
         helper.setFrom("MyAccountant@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
-        String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:3000/login\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
+        String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"https://myaccounta-n.vercel.app/login\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
         message.setContent(htmlMsg,"text/html");
         mailSender.send(message);
 
