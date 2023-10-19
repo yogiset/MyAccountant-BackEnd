@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://myaccounta-n.vercel.app","http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("https://myaccounta-n.vercel.app","https://myaccounta-n.vercel.app/","http://localhost:3000","https://myaccounta-n-git-main-yoghi-setiawans-projects.vercel.app/","https://myaccounta-n-yoghi-setiawans-projects.vercel.app/"));
         configuration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin",
                 "Content-Type", "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
