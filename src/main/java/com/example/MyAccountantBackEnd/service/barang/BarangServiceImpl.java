@@ -20,7 +20,10 @@ public class BarangServiceImpl implements BarangService {
 
     @Override
     public Barang addBarang(Barang barang) throws AllException {
-        barang.setKodebarang(UUIDGeneratorService.generateBarang());
+        for (int i = 0; i < 10; i++) {
+            String randomBarang = UUIDGeneratorService.generateBarang();
+            barang.setKodebarang(randomBarang);
+        }
 
         if (barang.getNamabarang() == null || barang.getNamabarang().isEmpty()) {
             throw new AllException("Nama barang harus di isi !!!");

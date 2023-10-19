@@ -55,6 +55,18 @@ public class UserServiceImpl implements UserService {
                 return UserUtils.getResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
             }
 
+            String name = requestMap.get("name");
+            Optional<User> userOptional = userRepository.findByName(name);
+            if (userOptional.isPresent()) {
+                return UserUtils.getResponseEntity("Username already exists", HttpStatus.BAD_REQUEST);
+            }
+
+            String contact = requestMap.get("contactNumber");
+            Optional<User> userOpt = userRepository.findByContactNumber(contact);
+            if (userOpt.isPresent()) {
+                return UserUtils.getResponseEntity("Phone Number already exists", HttpStatus.BAD_REQUEST);
+            }
+
             User user = createUserFromMap(requestMap);
 
             // Send activation email with the token

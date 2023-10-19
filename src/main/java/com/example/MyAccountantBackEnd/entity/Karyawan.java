@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,8 +31,9 @@ public class Karyawan {
     private Integer umur;
     private String kodekaryawan;
 
-//    public Integer getUmur() {
-//        return Period.between(this.tgl_lahir,LocalDate.now()).getYears();
-//
-//    }
+
+    public Integer getUmur() {
+        return Period.between(this.tgl_lahir,LocalDate.now()).getYears();
+
+    }
 }

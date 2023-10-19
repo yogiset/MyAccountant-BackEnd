@@ -5,13 +5,16 @@ import com.example.MyAccountantBackEnd.entity.Karyawan;
 import com.example.MyAccountantBackEnd.exception.AllException;
 import com.example.MyAccountantBackEnd.repository.KaryawanRepository;
 import com.example.MyAccountantBackEnd.service.UUIDGeneratorService;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class KaryawanServiceImpl implements KaryawanService {
@@ -20,7 +23,10 @@ public class KaryawanServiceImpl implements KaryawanService {
 
     @Override
     public Karyawan addKaryawan(Karyawan karyawan) throws AllException {
-        karyawan.setKodekaryawan(UUIDGeneratorService.generateKaryawan());
+        for (int i = 0; i < 10; i++) {
+            String randomKaryawan = UUIDGeneratorService.generateKaryawan();
+            karyawan.setKodekaryawan(randomKaryawan);
+        }
 
         if (karyawan.getNama() == null || karyawan.getNama().isEmpty()) {
             throw new AllException("Nama harus di isi !!!");
@@ -42,6 +48,7 @@ public class KaryawanServiceImpl implements KaryawanService {
             if (tanggalLahir.isEmpty()) {
                 throw new AllException("Tanggal lahir harus di isi !!!");
             }
+
         } else {
             throw new AllException("Tanggal lahir harus di isi !!!");
         }
@@ -61,7 +68,7 @@ public class KaryawanServiceImpl implements KaryawanService {
     public Karyawan fetchKaryawanById(Long id) throws AllException {
         Optional<Karyawan> karyawan = karyawanRepository.findById(id);
 
-        if(!karyawan.isPresent()){
+        if (!karyawan.isPresent()) {
             throw new AllException("Karyawan tidak ditemukan");
         }
         return karyawan.get();
@@ -70,7 +77,7 @@ public class KaryawanServiceImpl implements KaryawanService {
     @Override
     public void deleteKaryawanById(Long id) throws AllException {
         boolean exist = karyawanRepository.existsById(id);
-        if(!exist){
+        if (!exist) {
             throw new AllException("karyawan dengan Id" + id + "tidak ada");
         }
         karyawanRepository.deleteById(id);
@@ -119,16 +126,19 @@ public class KaryawanServiceImpl implements KaryawanService {
 
     @Override
     public void deleteKaryawanByKodeKaryawan(String kodekaryawan) throws AllException {
-        Optional <Karyawan> deleteKaryawan = karyawanRepository.findBykodekaryawan(kodekaryawan);
-        if(!deleteKaryawan.isPresent()){
+        Optional<Karyawan> deleteKaryawan = karyawanRepository.findBykodekaryawan(kodekaryawan);
+        if (!deleteKaryawan.isPresent()) {
             throw new AllException("karyawan dengan kode karyawan" + kodekaryawan + "tidak ada");
         } else {
 
-            karyawanRepository.deleteBykodekaryawan(kodekaryawan);}
+            karyawanRepository.deleteBykodekaryawan(kodekaryawan);
+        }
     }
 
     @Override
     public Karyawan updateKaryawanByKodeKaryawan(String kodekaryawan, Karyawan karyawan) throws AllException {
+
+
         if (karyawan.getNama() == null || karyawan.getNama().isEmpty()) {
             throw new AllException("Nama harus di isi !!!");
         }
@@ -157,6 +167,7 @@ public class KaryawanServiceImpl implements KaryawanService {
 
         updatedKaryawan.setNama(karyawan.getNama());
         updatedKaryawan.setEmail(karyawan.getEmail());
+        updatedKaryawan.setUmur(karyawan.getUmur());
         updatedKaryawan.setJabatan(karyawan.getJabatan());
         updatedKaryawan.setPhone(karyawan.getPhone());
         updatedKaryawan.setImageurl(karyawan.getImageurl());
@@ -165,4 +176,7 @@ public class KaryawanServiceImpl implements KaryawanService {
 
         return updatedKaryawan;
     }
+
+
+
 }
