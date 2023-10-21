@@ -108,9 +108,14 @@ public class UserServiceImpl implements UserService {
             String email = requestMap.get("email");
             String password = requestMap.get("password");
 
+
+
+            Optional<User> userOpt1 = userRepository.findByEmail(email);
+            if (!userOpt1.isPresent()){
+                return new ResponseEntity<>("{\"message\":\"Our System didnt find you email, Please Register first\"}", HttpStatus.BAD_REQUEST);
+            }
             // Retrieve the user by email from the repository
             User user = userRepository.findByEmailId(email);
-
             if (user != null) {
                 // Check if the provided password matches the stored password
                 if (passwordEncoder.matches(password, user.getPassword())) {
@@ -125,6 +130,8 @@ public class UserServiceImpl implements UserService {
                     }
                 }
             }
+
+
         } catch (Exception ex) {
             log.error("{}", ex);
         }

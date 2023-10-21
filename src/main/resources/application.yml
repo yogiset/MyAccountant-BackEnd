@@ -1,49 +1,18 @@
-#spring:
-#  datasource:
-#    url: jdbc:sqlserver://localhost:1433;databaseName=myaccountant;encrypt=true;trustServerCertificate=true
-#    username: yogi
-#    password: yogi
-#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#  jpa:
-#    hibernate:
-#      ddl-auto: create-drop
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-#    database: sql_server
-#    database-platform: org.hibernate.dialect.SQLServerDialect
-#server:
-#  port: 8082
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
 
-
+info:
+  application:
+    name: MyAccountant-BackEnd
+    description: A digital platform designed to assist accountants with activities such as employee data and company inventory data.
+    author: Yoghi Setiawan
+    version: '@project.version@'
 spring:
-
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: everlastings222@gmail.com
-    password: iedjytqxpbxvefzv
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enable: true
-          auth: true
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/myaccountant
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-server:
-  port: 8082
+  profiles:
+    active: dev

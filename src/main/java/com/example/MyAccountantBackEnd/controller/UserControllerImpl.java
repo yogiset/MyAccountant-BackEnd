@@ -42,6 +42,7 @@ public class UserControllerImpl implements UserController {
     @Override
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         try {
+
             return userService.verifyAccount(token);
         } catch (Exception ex) {
             ex.printStackTrace();
