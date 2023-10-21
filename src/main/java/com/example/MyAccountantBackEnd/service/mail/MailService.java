@@ -30,8 +30,8 @@ public class MailService {
     public void sendActivationEmail(User user) {
         log.info("inside sendActivationEmail");
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getName());
-        String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token ;
-
+        String verificationUrl = "http://localhost:8082/user/register/accountVerification/" + token;
+        String loginUrl = "http://localhost:3000/login";
 
         String subject = "Please Activate your Account";
 
@@ -42,7 +42,9 @@ public class MailService {
             messageHelper.setSubject(subject);
             String htmlMsg = "<p><b>Thank you for signing up to Myaccountant</b></p>" +
                     "<p>Please click on the below URL to activate your account:</p>" +
-                    "<a href='" + verificationUrl +"'>Activate Account</a>";
+                    "<a href='" + verificationUrl +"'>Activate Account</a>" +
+                    "<p>Please click on the below URL to redirect to login page:</p>" +
+                    "<a href='" + loginUrl +"'>Go to Login Page</a>";
             mimeMessage.setContent(htmlMsg, "text/html");
         };
 
