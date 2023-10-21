@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
             Optional<User> userOpt1 = userRepository.findByEmail(email);
             if (!userOpt1.isPresent()){
-                return new ResponseEntity<>("{\"message\":\"Our System didnt find you email, Please Register first\"}", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("{\"message\":\"Our System didn't find your email, Please Register first !\"}", HttpStatus.BAD_REQUEST);
             }
             // Retrieve the user by email from the repository
             User user = userRepository.findByEmailId(email);
