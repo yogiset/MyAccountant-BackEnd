@@ -3,7 +3,7 @@ package com.example.MyAccountantBackEnd.service.mail;
 
 import com.example.MyAccountantBackEnd.entity.User;
 import com.example.MyAccountantBackEnd.jwt.JwtUtil;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,12 +17,11 @@ import javax.mail.internet.MimeMessage;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class MailService {
 
     private final JavaMailSender mailSender;
-    private final MailContentBuilder mailContentBuilder;
     private  final JwtUtil jwtUtil;
 
 
@@ -31,8 +30,9 @@ public class MailService {
         log.info("inside sendActivationEmail");
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getName());
         String verificationUrl = "https://myaccountant-backend-production.up.railway.app/user/register/accountVerification/" + token;
+        String verificationUrl2 = "http:/localhost:8082/user/register/accountVerification/" + token;
         String loginUrl = "https://myaccounta-n.vercel.app/login";
-
+        String loginUrl2 = "http://localhost:3000/login";
         String subject = "Please Activate your Account";
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
@@ -66,6 +66,7 @@ public class MailService {
         helper.setTo(to);
         helper.setSubject(subject);
         String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"https://myaccounta-n.vercel.app/login\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
+        //String htmlMsg = "<p><b>Your Login details for MyAccountant Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:3000/login\">Click here to login</a></p>" +"Don't forget to changes your password, thank you for using our service";
         message.setContent(htmlMsg,"text/html");
         mailSender.send(message);
 

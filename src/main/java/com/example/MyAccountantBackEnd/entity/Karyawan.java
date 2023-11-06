@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.time.Period;
 @NoArgsConstructor
 @Data
 @Builder
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "karyawan")
 public class Karyawan {
     @Id
