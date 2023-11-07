@@ -2,7 +2,6 @@ package com.example.MyAccountantBackEnd.service.karyawan;
 
 import com.example.MyAccountantBackEnd.entity.Karyawan;
 import com.example.MyAccountantBackEnd.exception.AllException;
-
 import java.util.List;
 
 public interface KaryawanService {

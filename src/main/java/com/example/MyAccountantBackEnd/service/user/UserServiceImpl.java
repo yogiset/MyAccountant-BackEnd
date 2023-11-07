@@ -2,7 +2,6 @@ package com.example.MyAccountantBackEnd.service.user;
 
 import com.example.MyAccountantBackEnd.constant.ApiConstant;
 import com.example.MyAccountantBackEnd.entity.User;
-import com.example.MyAccountantBackEnd.jwt.JwtFilter;
 import com.example.MyAccountantBackEnd.jwt.JwtUtil;
 import com.example.MyAccountantBackEnd.repository.UserRepository;
 import com.example.MyAccountantBackEnd.service.mail.MailService;
@@ -14,10 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
@@ -30,14 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MailService mailService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtUtil jwtUtil;
-
-    @Autowired
-    private JwtFilter jwtFilter;
 
     @Autowired
     private PasswordEncoder passwordEncoder;;
@@ -284,14 +276,6 @@ public class UserServiceImpl implements UserService {
             return UserUtils.getResponseEntity("An error occurred while changing the password.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-
-
-
-
-
 
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {

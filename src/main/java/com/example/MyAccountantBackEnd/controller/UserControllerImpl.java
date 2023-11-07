@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import java.util.Map;
 public class UserControllerImpl implements UserController {
     @Autowired
     private UserService userService;
-
 
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
@@ -56,10 +54,6 @@ public class UserControllerImpl implements UserController {
         return userService.listUser();
 
     }
-
-
-
-
 
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {

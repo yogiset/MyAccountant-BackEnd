@@ -5,7 +5,6 @@ import com.example.MyAccountantBackEnd.exception.AllException;
 import com.example.MyAccountantBackEnd.service.barang.BarangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
