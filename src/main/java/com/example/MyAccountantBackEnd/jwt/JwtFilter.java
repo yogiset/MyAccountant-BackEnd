@@ -27,9 +27,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    Claims claims = null;
+    private Claims claims = null;
     private String username = null;
-
+    private String token = null;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         logger.info("Inside JwtFilter");
@@ -40,7 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
             String authorizationHeader = httpServletRequest.getHeader("Authorization");
-            String token = null;
+
 
             if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 token = authorizationHeader.substring(7);
@@ -61,10 +61,11 @@ public class JwtFilter extends OncePerRequestFilter {
         }
     }
     public boolean isAdmin(){
-        return "admin".equalsIgnoreCase((String) claims.get("role"));
+        return "admin".equalsIgnoreCase(jwtUtil.extractRole(token));
     }
-    public boolean isUser(){
-        return "user".equalsIgnoreCase((String) claims.get("role"));
+
+    public boolean isUser() {
+        return "user".equalsIgnoreCase(jwtUtil.extractRole(token));
     }
     public String getCurrentUser(){
         return username;
